@@ -1,7 +1,7 @@
 <template>
   <div class="center-text">
     <h1 >610青训营</h1>
-    <router-link to="/app">VS</router-link>
+    <router-link to="/battle">VS</router-link>
   </div>
 </template>
 
