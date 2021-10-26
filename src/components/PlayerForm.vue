@@ -1,19 +1,19 @@
 <template>
-    <div id="employee-form">
+    <div id="player-form">
         <form v-on:submit.prevent="handleSubmit">
             <label for="">Player name</label>
             <input 
                 type="text" 
                 v-bind:class="{'has-error':submitting&&invalidName}"
-                v-model="employee.name"
+                v-model="player.name"
                 v-on:focus="clearStatus"
                 v-on:keyboard="clearStatus"
                 />
             <label for="">Sore</label>
             <input 
                 type="text" 
-                v-bind:class="{'has-error':submitting&&invalidRole}"
-                v-model="employee.role"
+                v-bind:class="{'has-error':submitting&&invalidScore}"
+                v-model="player.score"
                 v-on:focus="clearStatus"
                 v-on:keyboard="clearStatus"
                 />
@@ -25,13 +25,13 @@
 <script>
 
 export default {
-    name:'employee-form',
+    name:'player-form',
     computed:{
         invalidName(){
-            return this.employee.name == ''
+            return this.player.name == ''
         },
-        invalidRole(){
-            return this.employee.role == ''
+        invalidScore(){
+            return this.player.score == ''
         }
     },
     data(){
@@ -39,9 +39,9 @@ export default {
             submitting:false,
             error:false,
             success:false,
-            employee:{
+            player:{
                 name:'',
-                role:'',
+                score:'',
             }
         }
     },
@@ -49,15 +49,15 @@ export default {
         handleSubmit(){
             this.submitting=true
             this.clearStatus()
-            if(this.invalidName||this.invalidRole){
+            if(this.invalidName||this.invalidScore){
                 this.error=true;
                 return;
             }
             
-           this.$emit("add:employee",this.employee)
-           this.employee={
+           this.$emit("add:player",this.player)
+           this.player={
                 name:'',
-                role:''
+                score:''
             }
 
            this.error=false,

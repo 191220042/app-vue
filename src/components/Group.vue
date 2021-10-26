@@ -3,15 +3,15 @@
     <el-row :gutter="20" type="flex" class="row-bg" justify="center">
       <el-col>
         <el-table :data="oneGroup" border style="width: 100%">
-          <el-table-column prop="name" label="Player" width="180"/>
-          <el-table-column prop="score" label="Score" width="180"/>
+          <el-table-column prop="name" label="Player" width="280"/>
+          <el-table-column prop="score" label="Score" width="280"/>
         </el-table>
       </el-col>
 
       <el-col>
         <el-table :data="twoGroup" border style="width: 100%">
-          <el-table-column prop="name" label="Player" width="180"/>
-          <el-table-column prop="score" label="Score" width="180"/>
+          <el-table-column prop="name" label="Player" width="280"/>
+          <el-table-column prop="score" label="Score" width="280"/>
         </el-table>
       </el-col>
     </el-row>
@@ -28,9 +28,9 @@
 export default {
   name: "Group",
   mounted() {
-    this.employees = this.$store.state.employees.map((employee) => ({
-      name: employee.name,
-      score: employee.role,
+    this.players = this.$store.state.players.map((player) => ({
+      name: player.name,
+      score: player.score,
     }));
 
     this.shuffle()
@@ -38,7 +38,7 @@ export default {
   methods: {
     /** 采用洗牌算法进行随机分组 */
     shuffle() {
-      const source = this.employees;
+      const source = this.players;
 
       for (let i = source.length; i > 1; --i) {
         const random = Math.floor(Math.random() * i);
@@ -53,7 +53,7 @@ export default {
   },
   data() {
     return {
-      employees: [],
+      players: [],
       oneGroup:[],
       twoGroup:[]
     };
@@ -71,7 +71,7 @@ el-col {
 
 .row-bg {
   padding: 10px 0;
-  background-color: #f9fafc;
+  background-color: #359123;
 }
 
 .center-text {

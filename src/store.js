@@ -1,11 +1,11 @@
 export default {
   state: {
-    employees: [],
+    players: [],
   },
   mutations: {
     init(state, data) {
-      state.employees = data;
-      window.localStorage.setItem("employees", JSON.stringify(data));
+      state.players = data;
+      window.localStorage.setItem("players", JSON.stringify(data));
     },
   },
 };

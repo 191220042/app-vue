@@ -1,54 +1,54 @@
 <template>
   <div id="battle">
     <h1>Players</h1>
-    <employee-form v-on:add:employee="addEmployee" />
-    <employee-table
-      v-bind:employees="employees"
-      v-on:delete:employee="deleteEmployee"
-      v-on:edit:employee="editEmployee"
+    <player-form v-on:add:player="addPlayer" />
+    <player-table
+      v-bind:players="players"
+      v-on:delete:player="deletePlayer"
+      v-on:edit:player="editPlayer"
     />
     <router-link to="/playerShow">Battle</router-link>
   </div>
 </template>
 
 <script>
-import EmployeeTable from "../components/EmployeeTable";
-import EmployeeForm from "../components/EmployeeForm";
+import PlayerTable from "../components/PlayerTable";
+import PlayerForm from "../components/PlayerForm";
 import { mapState } from "vuex";
 
 export default {
   name: "Battle",
   components: {
-    EmployeeTable,
-    EmployeeForm,
+    PlayerTable,
+    PlayerForm,
   },
   data() {
     return {
-      employees: [],
+      players: [],
     };
   },
   computed: mapState({
     getData: function(state) {
-      let localData = JSON.parse(window.localStorage.getItem("employees"));
-      if (state.employees.length == 0 && localData) {
+      let localData = JSON.parse(window.localStorage.getItem("players"));
+      if (state.players.length == 0 && localData) {
         this.$store.commit("init", localData); //同步操作
       }
-      return state.employees;
+      return state.players;
     },
   }),
   mounted() {
-    this.employees = this.getData;
+    this.players = this.getData;
   },
   methods: {
-    addEmployee(employee) {
+    addPlayer(player) {
       const lastId =
-        this.employees.length > 0
-          ? this.employees[this.employees.length - 1].id
+        this.players.length > 0
+          ? this.players[this.players.length - 1].id
           : 0;
       const id = lastId + 1;
-      const newEmployee = { ...employee, id };
-      this.employees = [...this.employees, newEmployee];
-      fetch(`http://localhost:8083/employees/${id}`, {
+      const newPlayer = { ...player, id };
+      this.players = [...this.players, newPlayer];
+      fetch(`http://localhost:8083/players/${id}`, {
         method: "PUT",
         // Headers : new  Headers({
         //   'Access-Control-Allow-Origin':'*',
@@ -59,20 +59,18 @@ export default {
         },
         body: JSON.stringify({
           id: id,
-          firstName: employee.name,
-          lastName: "",
-          name: employee.name,
-          role: employee.role,
+          name: player.name,
+          score: player.score,
         }),
       })
         .then((res) => res.text())
         .then(console.log);
 
-      this.$store.commit("init", this.employees);
+      this.$store.commit("init", this.players);
     },
-    deleteEmployee(id) {
-      this.employees = this.employees.filter((employee) => employee.id != id);
-      fetch(`http://localhost:8083/employees/delete/${id}`, {
+    deletePlayer(id) {
+      this.players = this.players.filter((player) => player.id != id);
+      fetch(`http://localhost:8083/players/delete/${id}`, {
         method: "DELETE",
         // Headers : new  Headers({
         //   'Access-Control-Allow-Origin':'*',
@@ -85,14 +83,14 @@ export default {
         .then((res) => res.text())
         .then(console.log);
 
-      this.$store.commit("init", this.employees);
+      this.$store.commit("init", this.players);
     },
-    editEmployee(id, updateEmployee) {
-      this.employees = this.employees.map((employee) =>
-        employee.id == id ? updateEmployee : employee
+    editPlayer(id, updatePlayer) {
+      this.players = this.players.map((player) =>
+        player.id == id ? updatePlayer : player
       );
 
-      fetch(`http://localhost:8083/employees/${id}`, {
+      fetch(`http://localhost:8083/players/${id}`, {
         method: "PUT",
         // Headers : new  Headers({
         //   'Access-Control-Allow-Origin':'*',
@@ -103,16 +101,14 @@ export default {
         },
         body: JSON.stringify({
           id: id,
-          firstName: updateEmployee.name,
-          lastName: "",
-          name: updateEmployee.name,
-          role: updateEmployee.role,
+          name: updatePlayer.name,
+          score: updatePlayer.score,
         }),
       })
         .then((res) => res.text())
         .then(console.log);
 
-      this.$store.commit("init", this.employees);
+      this.$store.commit("init", this.players);
     },
   },
 };

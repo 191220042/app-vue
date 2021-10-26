@@ -9,22 +9,22 @@ export default {
   name: "App",
   data() {
     return {
-      employees: [],
+      players: [],
     };
   },
   created() {
-    this.getEmployees();
+    this.getPlayers();
   },
   methods: {
-    async getEmployees() {
+    async getPlayers() {
       try {
-        const response = await fetch("http://localhost:8083/employees");
+        const response = await fetch("http://localhost:8083/players");
         const data = await response.json();
-        this.employees = data._embedded.employees;
+        this.players = data._embedded.players;
       } catch (error) {
         console.log(error);
       }
-      this.$store.commit("init", this.employees);
+      this.$store.commit("init", this.players);
     },
   },
 };
