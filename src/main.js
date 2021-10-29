@@ -12,6 +12,10 @@ Vue.use(VueRouter)
 Vue.use(Vuex)
 Vue.use(ElementUI)
 
+var axios = require('axios')
+axios.defaults.baseURL = 'http://localhost:8083'
+Vue.prototype.$axios = axios
+
 new Vue({
   router: new VueRouter({
     routes: routes
