@@ -11,14 +11,13 @@
                   auto-complete="off" placeholder="密码"></el-input>
       </el-form-item>
       <el-form-item  style="width: 100%">
-        <el-row  style="text-align: center">
-          <el-col :span="10" >
-            <el-button type="primary" style="width:80%;background: #505458;border: none;margin-left:35px " v-on:click="login">登录</el-button>
-          </el-col>
-          <el-col :span="10">
-            <router-link to="register"><el-button type="primary" style="width:80%;background: #505458;border: none;margin-left: 35px">注册</el-button></router-link>
-          </el-col>
-        </el-row>
+        <el-button type="primary" style="width:80%;background: #505458;border: none;" v-on:click="login">登录</el-button>
+      </el-form-item>
+      <el-form-item>
+        <div style="display: flex;justify-content: space-between">
+            <router-link to="register" style="font-size:12px;color: cornflowerblue;text-decoration: underline;">还没有账号</router-link>
+            <router-link to="register" style="font-size:12px;color: cornflowerblue;text-decoration: underline;">忘记密码</router-link>
+        </div>
       </el-form-item>
     </el-form>
 </template>

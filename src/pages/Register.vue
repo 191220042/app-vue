@@ -15,6 +15,21 @@
         <el-input type="text" v-model="loginForm.name"
                   auto-complete="off" placeholder="姓名"></el-input>
       </el-form-item>
+      <el-form-item>
+        <el-row>
+          <el-col :span="16">
+            <el-input type="text" v-model="loginForm.email"
+                    auto-complete="off" placeholder="E-Mail"></el-input>
+          </el-col>
+          <el-col :span="8">
+            <el-button @click="registerSend">获得验证码</el-button>
+          </el-col>
+        </el-row>
+      </el-form-item>
+      <el-form-item>
+        <el-input type="text" v-model="loginForm.code"
+                  auto-complete="off" placeholder="Code"></el-input>
+      </el-form-item>
       <el-form-item style="width: 100%" >
         <el-button type="primary" style="width: 100%;background: #505458;border: none"  v-on:click="register">注册</el-button>
       </el-form-item>
@@ -36,6 +51,8 @@ export default {
         username: '',
         password: '',
         name: '',
+        email: '',
+        code:''
       },
       loading: false
     }
@@ -47,6 +64,8 @@ export default {
             username: this.loginForm.username,
             password: this.loginForm.password,
             name: this.loginForm.name,
+            email: this.loginForm.email,
+            code:this.loginForm.code,
           })
           .then(resp => {
             if (resp.data.code === 200) {
@@ -61,8 +80,20 @@ export default {
             }
           })
           //.catch(failResponse => {})
+    },
+    registerSend (){
+      this.$axios
+          .post('/register/send', {
+            username: this.loginForm.username,
+            password: this.loginForm.password,
+            name: this.loginForm.name,
+            email: this.loginForm.email,
+            code:this.loginForm.code,
+          })
     }
   }
+
+
 }
 </script>
 
